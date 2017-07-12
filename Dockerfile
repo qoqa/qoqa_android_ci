@@ -1,9 +1,5 @@
 FROM ubuntu:16.04
 
-ENV VERSION_SDK_TOOLS "3859397"
-
-ENV ANDROID_HOME "/sdk"
-ENV PATH "$PATH:${ANDROID_HOME}/tools"
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get -qq update && \
@@ -17,10 +13,16 @@ RUN apt-get -qq update && \
       lib32ncurses5 \
       lib32z1 \
       unzip \
+      git \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
+
+ENV VERSION_SDK_TOOLS "3859397"
+
+ENV ANDROID_HOME "/sdk"
+ENV PATH "$PATH:${ANDROID_HOME}/tools"
 
 RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
