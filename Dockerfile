@@ -14,6 +14,7 @@ RUN apt-get -qq update && \
       lib32z1 \
       unzip \
       git \
+      ssh \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN rm -f /etc/ssl/certs/java/cacerts; \
