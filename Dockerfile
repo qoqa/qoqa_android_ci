@@ -29,7 +29,7 @@ RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_S
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
 
-RUN mkdir -p $ANDROID_HOME/licenses/ \
+RUN mkdir -p /sdk/licenses/ \
   && echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > /sdk/licenses/android-sdk-license \
   && echo -e "\nd56f5187479451eabf01fb78af6dfcb131a6481e" > /sdk/licenses/android-sdk-license \
   && echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > /sdk/licenses/android-sdk-preview-license \
