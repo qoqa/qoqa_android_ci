@@ -22,8 +22,7 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
 
 ENV VERSION_SDK_TOOLS "3859397"
 
-ENV ANDROID_HOME "/sdk"
-ENV PATH "$PATH:${ANDROID_HOME}/tools"
+ENV PATH "$PATH:/sdk/tools"
 
 RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
@@ -38,5 +37,5 @@ RUN mkdir -p /sdk/licenses/ \
 ADD packages.txt /sdk
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
-  ${ANDROID_HOME}/tools/bin/sdkmanager --update && \
-  (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager --package_file=/sdk/packages.txt
+  /sdk/tools/bin/sdkmanager --update && \
+  (while [ 1 ]; do sleep 5; echo y; done) | /sdk/tools/bin/sdkmanager --package_file=/sdk/packages.txt
