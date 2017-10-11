@@ -38,4 +38,4 @@ ADD packages.txt /sdk
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
   /sdk/tools/bin/sdkmanager --update && \
-  (while [ 1 ]; do sleep 5; echo y; done) | /sdk/tools/bin/sdkmanager --package_file=/sdk/packages.txt
+  (while [ 1 ]; do sleep 5; echo y; done) | /sdk/tools/bin/sdkmanager --package_file="/sdk/packages.txt"
