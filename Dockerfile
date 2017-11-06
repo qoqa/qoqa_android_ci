@@ -23,6 +23,7 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
 # See versions => https://developer.android.com/studio/index.html#downloads
 ENV VERSION_SDK_TOOLS "3859397"
 
+ENV ANDROID_HOME "/sdk/"
 ENV PATH "$PATH:/sdk/tools"
 
 RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
