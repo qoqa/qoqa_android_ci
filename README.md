@@ -4,5 +4,5 @@ Pour faire une nouvelle image:
 -
 
 * Ajouter/Changer packages.txt
-* `docker build -t kevinqoqa/qmob_android_ci:1.2.3 .`
-* `docker push kevinqoqa/qmob_android_ci:1.2.3`
+* `docker build -t kevinqoqa/qmob_android_ci:1.3.3 .`
+* `docker push kevinqoqa/qmob_android_ci:1.3.3`
