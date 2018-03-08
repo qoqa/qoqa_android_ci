@@ -37,4 +37,4 @@ ADD packages.txt /sdk/
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
   /sdk/tools/bin/sdkmanager --update && \
-  while read line; do /sdk/tools/bin/sdkmanager $line; done </sdk/packages.txt
+  while read line; do echo "install $line"; /sdk/tools/bin/sdkmanager $line; done </sdk/packages.txt
