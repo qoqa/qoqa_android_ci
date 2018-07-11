@@ -21,7 +21,7 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
 # See versions => https://developer.android.com/studio/index.html#downloads
-ENV VERSION_SDK_TOOLS "3859397"
+ENV VERSION_SDK_TOOLS "4333796"
 
 ENV ANDROID_HOME "/sdk/"
 ENV PATH "$PATH:/sdk/tools"
