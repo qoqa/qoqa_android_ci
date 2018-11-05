@@ -37,4 +37,9 @@ ADD packages.txt /sdk/
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
   /sdk/tools/bin/sdkmanager --update && \
-  while read line; do echo "install $line"; /sdk/tools/bin/sdkmanager $line; done </sdk/packages.txt
+  /sdk/tools/bin/sdkmanager "build-tools;28.0.3" && \
+  /sdk/tools/bin/sdkmanager "platforms;android-28" && \
+  /sdk/tools/bin/sdkmanager "platform-tools" && \
+  /sdk/tools/bin/sdkmanager "extras;android;m2repository" && \
+  /sdk/tools/bin/sdkmanager "extras;google;google_play_services" && \
+  /sdk/tools/bin/sdkmanager "extras;google;m2repository"
