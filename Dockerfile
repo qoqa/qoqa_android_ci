@@ -28,9 +28,9 @@ RUN mkdir -p /root/.android && \
   /sdk/tools/bin/sdkmanager "extras;google;m2repository"
 
 
-FROM openjdk:12
+FROM openjdk:8-slim
 COPY --from=0 /sdk /sdk
 COPY --from=0 /root/.android /root/.android
-RUN yum install -y git
+RUN apt-get update -qq && apt-get install -y git
 ENV ANDROID_HOME "/sdk/"
 ENV PATH "$PATH:/sdk/tools"
