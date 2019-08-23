@@ -20,8 +20,8 @@ ADD /licenses/* /sdk/licenses/
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
   /sdk/tools/bin/sdkmanager --update && \
-  /sdk/tools/bin/sdkmanager "build-tools;28.0.3" && \
-  /sdk/tools/bin/sdkmanager "platforms;android-28" && \
+  /sdk/tools/bin/sdkmanager "build-tools;29.0.2" && \
+  /sdk/tools/bin/sdkmanager "platforms;android-29" && \
   /sdk/tools/bin/sdkmanager "platform-tools" && \
   /sdk/tools/bin/sdkmanager "extras;android;m2repository" && \
   /sdk/tools/bin/sdkmanager "extras;google;google_play_services" && \
@@ -34,3 +34,4 @@ COPY --from=0 /root/.android /root/.android
 RUN apt-get update -qq && apt-get install -y git
 ENV ANDROID_HOME "/sdk/"
 ENV PATH "$PATH:/sdk/tools"
+RUN chmod -R 777 /sdk
