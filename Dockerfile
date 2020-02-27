@@ -33,5 +33,6 @@ COPY --from=0 /sdk /sdk
 COPY --from=0 /root/.android /root/.android
 RUN apt-get update -qq && apt-get install -y git
 ENV ANDROID_HOME "/sdk/"
+ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/tools"
 RUN chmod -R 777 /sdk
