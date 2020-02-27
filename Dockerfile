@@ -20,7 +20,7 @@ ADD /licenses/* /sdk/licenses/
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
   /sdk/tools/bin/sdkmanager --update && \
-  /sdk/tools/bin/sdkmanager "build-tools;29.0.2" && \
+  /sdk/tools/bin/sdkmanager "build-tools;29.0.3" && \
   /sdk/tools/bin/sdkmanager "platforms;android-29" && \
   /sdk/tools/bin/sdkmanager "platform-tools" && \
   /sdk/tools/bin/sdkmanager "extras;android;m2repository" && \
