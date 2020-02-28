@@ -37,3 +37,4 @@ ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/tools:/sdk/platform-tools"
 RUN chmod -R 777 /sdk
 RUN chmod -R 777 /root/.android
+RUN mkdir /.android && chmod -R 777 /.android
