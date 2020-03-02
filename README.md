@@ -1,2 +1,1 @@
-Repo pour l'image docker Android (CI).
-
+# Docker image for Android CI
