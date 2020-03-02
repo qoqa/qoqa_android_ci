@@ -31,7 +31,7 @@ RUN mkdir -p /root/.android && \
 FROM openjdk:8-slim
 COPY --from=0 /sdk /sdk
 COPY --from=0 /root/.android /root/.android
-RUN apt-get update -qq && apt-get install -y git
+RUN apt-get update -qq && apt-get install -y git curl gnupg2
 ENV ANDROID_HOME "/sdk/"
 ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/tools:/sdk/platform-tools"
