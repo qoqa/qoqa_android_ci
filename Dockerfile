@@ -31,11 +31,18 @@ RUN mkdir -p /root/.android && \
 FROM openjdk:8-slim
 COPY --from=0 /sdk /sdk
 COPY --from=0 /root/.android /root/.android
+
 RUN apt-get update -qq && apt-get install -y git curl gnupg2
+
 ENV ANDROID_HOME "/sdk/"
 ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/tools:/sdk/platform-tools"
 ENV HOME "/root"
+
+RUN groupadd -g 1000 jenkins
+RUN useradd -m -g jenkins -u 1000 jenkins
+RUN usermod -a -G root jenkins
+
 ADD debug.keystore /root/.android/
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && \
