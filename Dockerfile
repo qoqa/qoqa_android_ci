@@ -42,6 +42,7 @@ ENV HOME "/root"
 RUN groupadd -g 1000 jenkins
 RUN useradd -m -g jenkins -u 1000 jenkins
 RUN usermod -a -G root jenkins
+RUN chmod -R 777 /root
 
 ADD debug.keystore /root/.android/
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
