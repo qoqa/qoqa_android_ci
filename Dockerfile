@@ -36,8 +36,6 @@ ENV ANDROID_HOME "/sdk/"
 ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/tools:/sdk/platform-tools"
 ENV HOME "/root"
-RUN chmod -R 777 /sdk
-RUN chmod -R 777 /root/.android
 ADD debug.keystore /root/.android/
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && \
