@@ -8,18 +8,19 @@ RUN apt-get -qq update && \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
-# See versions => https://developer.android.com/studio/index.html#downloads
-ENV VERSION_SDK_TOOLS "4333796"
 ENV ANDROID_HOME "/sdk/"
 ENV PATH "$PATH:/sdk/tools"
-RUN curl -s https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_SDK_TOOLS}.zip > /sdk.zip && \
+# See versions => https://developer.android.com/studio/index.html#downloads
+RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
 RUN mkdir -p /sdk/licenses/
 ADD /licenses/* /sdk/licenses/
 RUN mkdir -p /root/.android && \
   touch /root/.android/repositories.cfg && \
+  /sdk/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "tools" && \
   /sdk/tools/bin/sdkmanager --update && \
+  /sdk/tools/bin/sdkmanager "ndk-bundle" && \
   /sdk/tools/bin/sdkmanager "build-tools;29.0.3" && \
   /sdk/tools/bin/sdkmanager "platforms;android-29" && \
   /sdk/tools/bin/sdkmanager "platform-tools" && \
