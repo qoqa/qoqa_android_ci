@@ -30,7 +30,15 @@ RUN mkdir -p /root/.android && \
 
 
 FROM openjdk:8-slim
-COPY --from=0 /sdk /sdk
+COPY --from=0 /sdk/build-tools /sdk/build-tools
+COPY --from=0 /sdk/emulator /sdk/emulator
+COPY --from=0 /sdk/extras /sdk/extras
+COPY --from=0 /sdk/licenses /sdk/licenses
+COPY --from=0 /sdk/ndk-bundle /sdk/ndk-bundle
+COPY --from=0 /sdk/patcher /sdk/patcher
+COPY --from=0 /sdk/platform-tools /sdk/platform-tools
+COPY --from=0 /sdk/platforms /sdk/platforms
+COPY --from=0 /sdk/tools /sdk/tools
 COPY --from=0 /root/.android /root/.android
 
 RUN apt-get update -qq && apt-get install -y git curl gnupg2
