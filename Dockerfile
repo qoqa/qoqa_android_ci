@@ -21,6 +21,7 @@ RUN mkdir -p /root/.android && \
   /sdk/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "tools" && \
   /sdk/tools/bin/sdkmanager --update && \
   /sdk/tools/bin/sdkmanager "ndk-bundle" && \
+  /sdk/tools/bin/sdkmanager "ndk;20.0.5594570" && \
   /sdk/tools/bin/sdkmanager "build-tools;29.0.3" && \
   /sdk/tools/bin/sdkmanager "platforms;android-29" && \
   /sdk/tools/bin/sdkmanager "platform-tools" && \
