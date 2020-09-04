@@ -21,7 +21,7 @@ RUN mkdir -p /root/.android && \
   /sdk/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "tools" && \
   /sdk/tools/bin/sdkmanager --update && \
   /sdk/tools/bin/sdkmanager "ndk;21.0.6113669" && \
-  /sdk/tools/bin/sdkmanager "build-tools;30.0.1" && \
+  /sdk/tools/bin/sdkmanager "build-tools;30.0.2" && \
   /sdk/tools/bin/sdkmanager "platforms;android-30" && \
   /sdk/tools/bin/sdkmanager "platform-tools" && \
   /sdk/tools/bin/sdkmanager "extras;android;m2repository" && \
