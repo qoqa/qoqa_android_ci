@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.10
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
@@ -11,7 +11,7 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
 ENV ANDROID_HOME "/sdk/"
 ENV PATH "$PATH:/sdk/tools"
 # See versions => https://developer.android.com/studio/index.html#downloads
-RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip > /sdk.zip && \
+RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
 RUN mkdir -p /sdk/licenses/
@@ -21,7 +21,7 @@ RUN mkdir -p /root/.android && \
   /sdk/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "tools" && \
   /sdk/tools/bin/sdkmanager --update && \
   /sdk/tools/bin/sdkmanager "ndk;21.0.6113669" && \
-  /sdk/tools/bin/sdkmanager "build-tools;30.0.2" && \
+  /sdk/tools/bin/sdkmanager "build-tools;30.0.3" && \
   /sdk/tools/bin/sdkmanager "platforms;android-30" && \
   /sdk/tools/bin/sdkmanager "platform-tools" && \
   /sdk/tools/bin/sdkmanager "extras;android;m2repository" && \
