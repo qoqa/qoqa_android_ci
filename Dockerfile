@@ -8,25 +8,28 @@ RUN apt-get -qq update && \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
-ENV ANDROID_HOME "/sdk/"
-ENV PATH "$PATH:/sdk/tools"
+ENV ANDROID_SDK_ROOT "/sdk/"
+ENV PATH "$PATH:/sdk/cmdline-tools"
 # See versions => https://developer.android.com/studio/index.html#downloads
 RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
+RUN mv /sdk/cmdline-tools /sdk/tools
+RUN mkdir /sdk/cmdline-tools
+RUN mv /sdk/tools /sdk/cmdline-tools/tools
 RUN mkdir -p /sdk/licenses/
 ADD /licenses/* /sdk/licenses/
-RUN mkdir -p /root/.android && \
-  touch /root/.android/repositories.cfg && \
-  /sdk/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "tools" && \
-  /sdk/tools/bin/sdkmanager --update && \
-  /sdk/tools/bin/sdkmanager "ndk;21.0.6113669" && \
-  /sdk/tools/bin/sdkmanager "build-tools;30.0.3" && \
-  /sdk/tools/bin/sdkmanager "platforms;android-30" && \
-  /sdk/tools/bin/sdkmanager "platform-tools" && \
-  /sdk/tools/bin/sdkmanager "extras;android;m2repository" && \
-  /sdk/tools/bin/sdkmanager "extras;google;google_play_services" && \
-  /sdk/tools/bin/sdkmanager "extras;google;m2repository"
+RUN mkdir -p /root/.android
+RUN touch /root/.android/repositories.cfg
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "tools"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager --update
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "ndk;21.0.6113669"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;30.0.3"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-30"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platform-tools"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;android;m2repository"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;google;google_play_services"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;google;m2repository"
 
 
 FROM openjdk:8-slim
@@ -38,14 +41,14 @@ COPY --from=0 /sdk/ndk /sdk/ndk
 COPY --from=0 /sdk/patcher /sdk/patcher
 COPY --from=0 /sdk/platform-tools /sdk/platform-tools
 COPY --from=0 /sdk/platforms /sdk/platforms
-COPY --from=0 /sdk/tools /sdk/tools
+COPY --from=0 /sdk/cmdline-tools /sdk/cmdline-tools
 COPY --from=0 /root/.android /root/.android
 
 RUN apt-get update -qq && apt-get install -y git curl gnupg2
 
 ENV ANDROID_HOME "/sdk/"
 ENV ANDROID_SDK_ROOT "/sdk/"
-ENV PATH "$PATH:/sdk/tools:/sdk/platform-tools"
+ENV PATH "$PATH:/sdk/cmdline-tools:/sdk/platform-tools"
 ENV HOME "/root"
 
 RUN groupadd -g 1000 jenkins
