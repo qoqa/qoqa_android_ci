@@ -32,7 +32,7 @@ RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;google;google_play_services"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;google;m2repository"
 
 
-FROM openjdk:8-slim
+FROM openjdk:16-slim
 COPY --from=0 /sdk/build-tools /sdk/build-tools
 COPY --from=0 /sdk/emulator /sdk/emulator
 COPY --from=0 /sdk/extras /sdk/extras
