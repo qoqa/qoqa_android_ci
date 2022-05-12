@@ -3,7 +3,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
       curl \
-      openjdk-15-jdk \
+      default-jdk \
       unzip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN rm -f /etc/ssl/certs/java/cacerts; \
@@ -11,7 +11,7 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
 ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/cmdline-tools"
 # See versions => https://developer.android.com/studio/index.html#downloads
-RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip > /sdk.zip && \
+RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
 RUN mv /sdk/cmdline-tools /sdk/tools
@@ -23,9 +23,8 @@ RUN mkdir -p /root/.android
 RUN touch /root/.android/repositories.cfg
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager --update
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "ndk;21.0.6113669"
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;31.0.0"
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-31"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;32.0.0"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-32"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platform-tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;android;m2repository"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;google;google_play_services"
@@ -37,7 +36,6 @@ COPY --from=0 /sdk/build-tools /sdk/build-tools
 COPY --from=0 /sdk/emulator /sdk/emulator
 COPY --from=0 /sdk/extras /sdk/extras
 COPY --from=0 /sdk/licenses /sdk/licenses
-COPY --from=0 /sdk/ndk /sdk/ndk
 COPY --from=0 /sdk/patcher /sdk/patcher
 COPY --from=0 /sdk/platform-tools /sdk/platform-tools
 COPY --from=0 /sdk/platforms /sdk/platforms
