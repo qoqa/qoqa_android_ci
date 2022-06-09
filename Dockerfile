@@ -60,6 +60,6 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
   apt-get update -y && apt-get install google-cloud-sdk unzip -y
 
 RUN mkdir /opt/gradle
-RUN curl https://gradle.org/next-steps/?version=7.4.2&format=bin --output /opt/gradle/gradle-7.4.2-bin.zip
+RUN curl "https://gradle.org/next-steps/?version=7.4.2&format=bin" --output /opt/gradle/gradle-7.4.2-bin.zip
 RUN unzip -d /opt/gradle /opt/gradle/gradle-7.4.2-bin.zip
 RUN /opt/gradle/gradle-7.4.2/bin/gradle wrapper --gradle-version=7.4.2
