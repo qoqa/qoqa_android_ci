@@ -20,6 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Version
+        run: echo ${{ github.ref }}
+
       - name: Build image
         run: docker build . --file Dockerfile --tag image
 
