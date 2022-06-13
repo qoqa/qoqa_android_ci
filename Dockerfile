@@ -68,3 +68,4 @@ ADD settings.gradle /
 RUN /opt/gradle/gradle-7.4.2/bin/gradle wrapper --gradle-version=7.4.2
 RUN ./gradlew --version
 ENV PATH "$PATH:/opt/gradle/gradle-7.4.2/bin"
+ENV GRADLE_USER_HOME "/root/.gradle"
