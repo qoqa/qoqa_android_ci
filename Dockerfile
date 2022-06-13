@@ -67,5 +67,6 @@ RUN curl "https://services.gradle.org/distributions/gradle-7.4.2-bin.zip" -L --o
 ADD settings.gradle /
 RUN /opt/gradle/gradle-7.4.2/bin/gradle wrapper --gradle-version=7.4.2
 RUN ./gradlew --version
+RUN chmod -R 777 /root/.gradle
 ENV PATH "$PATH:/opt/gradle/gradle-7.4.2/bin"
 ENV GRADLE_USER_HOME "/root/.gradle"
