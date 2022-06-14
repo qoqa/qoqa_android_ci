@@ -1,6 +1,8 @@
 name: Docker
 
 on:
+  pull_request:
+    types: [opened, reopened, synchronize]
   push:
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -14,10 +16,12 @@ jobs:
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Version
+        run: echo ${{ github.ref }}
 
       - name: Build image
         run: docker build . --file Dockerfile --tag image
