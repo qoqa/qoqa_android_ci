@@ -1,4 +1,4 @@
-FROM ubuntu:21.10
+FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
@@ -11,7 +11,7 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
 ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/cmdline-tools"
 # See versions => https://developer.android.com/studio/index.html#downloads
-RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-8092744_latest.zip > /sdk.zip && \
+RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
 RUN mv /sdk/cmdline-tools /sdk/tools
@@ -23,8 +23,8 @@ RUN mkdir -p /root/.android
 RUN touch /root/.android/repositories.cfg
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager --update
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;32.0.0"
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-32"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;33.0.0"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-33"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platform-tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;android;m2repository"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;google;google_play_services"
@@ -60,13 +60,13 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
   apt-get update -y && apt-get install google-cloud-sdk unzip -y
 
 RUN mkdir /opt/gradle
-RUN curl "https://services.gradle.org/distributions/gradle-7.4.2-bin.zip" -L --output /root/gradle.zip && \
+RUN curl "https://services.gradle.org/distributions/gradle-7.5.1-bin.zip" -L --output /root/gradle.zip && \
   unzip -d /opt/gradle /root/gradle.zip && \
   ls /opt/gradle
 
 ADD settings.gradle /
-RUN /opt/gradle/gradle-7.4.2/bin/gradle wrapper --gradle-version=7.4.2
+RUN /opt/gradle/gradle-7.5.1/bin/gradle wrapper --gradle-version=7.5.1
 RUN ./gradlew --version
-RUN chown -R jenkins:jenkins /root/.gradle && rm -rf /root/.gradle/daemon/7.4.2/*.lock
-ENV PATH "$PATH:/opt/gradle/gradle-7.4.2/bin"
+RUN chown -R jenkins:jenkins /root/.gradle && rm -rf /root/.gradle/daemon/7.5.1/*.lock
+ENV PATH "$PATH:/opt/gradle/gradle-7.5.1/bin"
 ENV GRADLE_USER_HOME "/root/.gradle"
