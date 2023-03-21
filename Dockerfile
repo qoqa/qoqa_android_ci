@@ -11,7 +11,7 @@ RUN rm -f /etc/ssl/certs/java/cacerts; \
 ENV ANDROID_SDK_ROOT "/sdk/"
 ENV PATH "$PATH:/sdk/cmdline-tools"
 # See versions => https://developer.android.com/studio/index.html#downloads
-RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip > /sdk.zip && \
+RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
     rm -v /sdk.zip
 RUN mv /sdk/cmdline-tools /sdk/tools
@@ -23,7 +23,7 @@ RUN mkdir -p /root/.android
 RUN touch /root/.android/repositories.cfg
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager --update
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;33.0.1"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;33.0.2"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-33"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platform-tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;android;m2repository"
