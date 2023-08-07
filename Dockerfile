@@ -1,4 +1,4 @@
-FROM ubuntu:22.10
+FROM ubuntu:23.10
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
@@ -23,8 +23,8 @@ RUN mkdir -p /root/.android
 RUN touch /root/.android/repositories.cfg
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager --update
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;33.0.2"
-RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-33"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "build-tools;34.0.0"
+RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platforms;android-34"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "platform-tools"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;android;m2repository"
 RUN /sdk/cmdline-tools/tools/bin/sdkmanager "extras;google;google_play_services"
@@ -60,13 +60,13 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
   apt-get update -y && apt-get install google-cloud-sdk unzip -y
 
 RUN mkdir /opt/gradle
-RUN curl "https://services.gradle.org/distributions/gradle-8.0.2-bin.zip" -L --output /root/gradle.zip && \
+RUN curl "https://services.gradle.org/distributions/gradle-8.2.1-bin.zip" -L --output /root/gradle.zip && \
   unzip -d /opt/gradle /root/gradle.zip && \
   ls /opt/gradle
 
 ADD settings.gradle /
-RUN /opt/gradle/gradle-8.0.2/bin/gradle wrapper --gradle-version=8.0.2
+RUN /opt/gradle/gradle-8.2.1/bin/gradle wrapper --gradle-version=8.2.1
 RUN ./gradlew --version
-RUN chown -R jenkins:jenkins /root/.gradle && rm -rf /root/.gradle/daemon/8.0.2/*.lock
-ENV PATH "$PATH:/opt/gradle/gradle-8.0.2/bin"
+RUN chown -R jenkins:jenkins /root/.gradle && rm -rf /root/.gradle/daemon/8.2.1/*.lock
+ENV PATH "$PATH:/opt/gradle/gradle-8.2.1/bin"
 ENV GRADLE_USER_HOME "/root/.gradle"
