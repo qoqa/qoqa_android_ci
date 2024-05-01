@@ -58,7 +58,8 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && \
   apt-get update -y && apt-get install google-cloud-sdk unzip -y
 
-RUN curl -Ls "https://get.maestro.mobile.dev" | bash
+RUN curl -Ls "https://get.maestro.mobile.dev" | bash && \
+  ln -s /root/.maestro/bin/maestro /usr/bin/maestro
 
 RUN mkdir /opt/gradle
 RUN curl "https://services.gradle.org/distributions/gradle-8.7-bin.zip" -L --output /root/gradle.zip && \
