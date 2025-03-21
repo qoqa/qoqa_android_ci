@@ -1,5 +1,5 @@
-FROM ubuntu:24.04
-ENV DEBIAN_FRONTEND noninteractive
+FROM ubuntu:24.10
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -qq update && \
     apt-get install -qqy --no-install-recommends \
       curl \
@@ -8,8 +8,8 @@ RUN apt-get -qq update && \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN rm -f /etc/ssl/certs/java/cacerts; \
     /var/lib/dpkg/info/ca-certificates-java.postinst configure
-ENV ANDROID_SDK_ROOT "/sdk/"
-ENV PATH "$PATH:/sdk/cmdline-tools"
+ENV ANDROID_SDK_ROOT="/sdk/"
+ENV PATH="$PATH:/sdk/cmdline-tools"
 # See versions => https://developer.android.com/studio/index.html#downloads
 RUN curl -s https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip > /sdk.zip && \
     unzip /sdk.zip -d /sdk && \
@@ -43,10 +43,10 @@ COPY --from=0 /root/.android /root/.android
 
 RUN apt-get update -qq && apt-get install -y git curl gnupg2
 
-ENV ANDROID_HOME "/sdk/"
-ENV ANDROID_SDK_ROOT "/sdk/"
-ENV PATH "$PATH:/sdk/cmdline-tools:/sdk/platform-tools"
-ENV HOME "/root"
+ENV ANDROID_HOME="/sdk/"
+ENV ANDROID_SDK_ROOT="/sdk/"
+ENV PATH="$PATH:/sdk/cmdline-tools:/sdk/platform-tools"
+ENV HOME="/root"
 
 RUN groupadd -g 1000 jenkins
 RUN useradd -m -g jenkins -u 1000 jenkins
@@ -58,17 +58,14 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.c
   curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && \
   apt-get update -y && apt-get install google-cloud-sdk unzip -y
 
-RUN curl -Ls "https://get.maestro.mobile.dev" | bash && \
-  ln -s /root/.maestro/bin/maestro /usr/bin/maestro
-
 RUN mkdir /opt/gradle
-RUN curl "https://services.gradle.org/distributions/gradle-8.8-bin.zip" -L --output /root/gradle.zip && \
+RUN curl "https://services.gradle.org/distributions/gradle-8.13-bin.zip" -L --output /root/gradle.zip && \
   unzip -d /opt/gradle /root/gradle.zip && \
   ls /opt/gradle
 
 ADD settings.gradle /
-RUN /opt/gradle/gradle-8.8/bin/gradle wrapper --gradle-version=8.8
+RUN /opt/gradle/gradle-8.13/bin/gradle wrapper --gradle-version=8.13
 RUN ./gradlew --version
-RUN chown -R jenkins:jenkins /root/.gradle && rm -rf /root/.gradle/daemon/8.8/*.lock
-ENV PATH "$PATH:/opt/gradle/gradle-8.8/bin"
-ENV GRADLE_USER_HOME "/root/.gradle"
+RUN chown -R jenkins:jenkins /root/.gradle && rm -rf /root/.gradle/daemon/8.13/*.lock
+ENV PATH="$PATH:/opt/gradle/gradle-8.13/bin"
+ENV GRADLE_USER_HOME="/root/.gradle"
